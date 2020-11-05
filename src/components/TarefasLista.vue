@@ -26,6 +26,17 @@
 
         <p v-else>Nenhuma tarefa a fazer.</p>
 
+        <h3 class="font-weight-light mt-4">Concluídas({{$store.getters.tarefasConcluidas.length}})</h3>
+        <ul class="list-group" v-if="$store.getters.tarefasConcluidas.length > 0">
+            <TarefasListaIten
+                v-for="tarefa in $store.getters.tarefasConcluidas"
+                :key="tarefa.id"
+                :tarefa="tarefa"
+                @editar="selecionarTarefaParaEdicao" />
+        </ul>
+
+        <p v-else>Nenhuma tarefa a fazer.</p>
+
         <TarefaSalvar
             v-if="exibirFormulario"
             :tarefa="tarefaSelecionada" />
