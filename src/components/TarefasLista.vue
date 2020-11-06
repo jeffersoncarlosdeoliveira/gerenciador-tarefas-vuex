@@ -35,7 +35,7 @@
                 @editar="selecionarTarefaParaEdicao" />
         </ul>
 
-        <p v-else>Nenhuma tarefa a fazer.</p>
+        <p v-else>Nenhuma tarefa concluída.</p>
 
         <TarefaSalvar
             v-if="exibirFormulario"
@@ -47,7 +47,7 @@
 
 <script>
 
-import {mapState} from 'vuex'
+import {mapGetters, mapState} from 'vuex'
 import TarefaSalvar from './TarefaSalvar.vue'
 import TarefasListaIten from './TarefasListaIten.vue'
 
@@ -64,7 +64,16 @@ export default {
         }
     },
     comupted:{
-        ...mapState(['tarefas'])
+        ...mapState(['tarefas']),
+        ...mapGetters([
+                'tarefasAFazer',
+                'tarefasConcluidas',
+                'totalTarefasConcluidas'
+            
+            ])
+    },
+    created() {
+        this.$store.commit('listaTarefas')
     },
     methods: {
         exibirFormularioCriarTarefa() {
